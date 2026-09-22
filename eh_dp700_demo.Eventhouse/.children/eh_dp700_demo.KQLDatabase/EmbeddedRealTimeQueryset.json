@@ -1,0 +1,28 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "34cf0d6f-7f46-496b-87d0-9f360395d965",
+        "clusterUri": "https://trd-8qd850yjhzx19jc8qn.z6.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "fc36fe59-5f34-41ff-a53b-3f291075858c"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "0d7cc0a8-bbad-4cd5-bde5-591020a69794",
+        "content": "//***********************************************************************************************************\n// Here are two articles to help you get started with KQL:\n// KQL reference guide - https://aka.ms/KQLguide\n// SQL - KQL conversions - https://aka.ms/sqlcheatsheet\n//***********************************************************************************************************\n\n// Use \"take\" to view a sample number of records in the table and check the data.\nYOUR_TABLE_HERE\n| take 100\n\n// See how many records are in the table.\nYOUR_TABLE_HERE\n| count\n\n// This query returns the number of ingestions per hour in the given table.\nYOUR_TABLE_HERE\n| summarize IngestionCount = count() by bin(ingestion_time(), 1h)\n\n",
+        "title": "Tab",
+        "dataSourceId": "34cf0d6f-7f46-496b-87d0-9f360395d965"
+      },
+      {
+        "id": "de22c7b9-0913-4765-ae29-c57a9035bdd6",
+        "content": "// Create website visits table\n.create table dp700_mv_website_visits (\n    visit_id: string,\n    visit_timestamp: datetime,\n    page: string\n)\n\n// Ingest initial website visits with timestamps\n.ingest inline into table dp700_mv_website_visits with (format='csv') <|\n\"v001\",\"2026-09-01T09:15:00Z\",\"Home\"\n\"v002\",\"2026-09-01T11:30:00Z\",\"Contact\"\n\"v003\",\"2026-09-02T14:45:00Z\",\"Home\"\n\"v004\",\"2026-09-03T08:05:00Z\",\"Pricing\"\n\"v005\",\"2026-09-03T20:10:00Z\",\"Blog\"\n\n// Query table contents\ndp700_mv_website_visits\n| order by visit_timestamp asc\n\n// Create materialized view WITHOUT backfill\n.create async materialized-view with (\n    docString = \"Daily website visits without backfill\"\n) dp700_mv_daily_visits_no_backfill\non table dp700_mv_website_visits\n{\n    dp700_mv_website_visits\n    | extend visit_day = bin(visit_timestamp, 1d)\n    | summarize visit_count = count() by visit_day\n}\n\n// Query the materialized view without backfill\ndp700_mv_daily_visits_no_backfill\n| order by visit_day asc\n\n// Create materialized view WITH backfill\n.create async materialized-view with (\n    backfill = true,\n    effectiveDateTime = datetime(2026-06-01T00:00:00Z),\n    docString = \"Daily website visits with backfill\"\n) dp700_mv_daily_visits_with_backfill\non table dp700_mv_website_visits\n{\n    dp700_mv_website_visits\n    | extend visit_day = bin(visit_timestamp, 1d)\n    | summarize visit_count = count() by visit_day\n}\n\n// Query the materialized view with backfill\ndp700_mv_daily_visits_with_backfill\n| order by visit_day asc\n\n// Show materialized views in the database\n.show materialized-views\n\n// Ingest new website visits\n.ingest inline into table dp700_mv_website_visits with (format='csv') <|\n\"v006\",\"2026-09-04T10:10:00Z\",\"Home\"\n\"v007\",\"2026-09-04T12:30:00Z\",\"Contact\"\n\n// Query table contents again\ndp700_mv_website_visits\n| order by visit_timestamp asc\n\n// Query materialized view without backfill after new ingestions\ndp700_mv_daily_visits_no_backfill\n| order by visit_day asc\n\n// Query materialized view with backfill after new ingestions\ndp700_mv_daily_visits_with_backfill\n| order by visit_day asc\n\n\n// Create a simple function to get website visits for a given page\n.create-or-alter function get_daily_visits_per_page(pageName:string)\n{\n    dp700_mv_website_visits\n    | where page == pageName\n    | extend visit_day = bin(visit_timestamp, 1d)\n    | summarize visit_count = count() by visit_day\n}\n\n// Query the function to see visits to the 'Home' page\nget_daily_visits_per_page(\"Home\")\n| order by visit_day asc\n\n// Query the function to see visits to the 'Blog' page\nget_daily_visits_per_page(\"Blog\")\n| order by visit_day asc\n\n\n// Drop old materialized views and table if they exist\n//.drop materialized-view dp700_mv_daily_visits_no_backfill ifexists\n\n//.drop materialized-view dp700_mv_daily_visits_with_backfill ifexists\n\n//.drop table dp700_mv_website_visits ifexists\n\n//.drop function get_daily_visits_per_page ifexists",
+        "title": "",
+        "dataSourceId": "34cf0d6f-7f46-496b-87d0-9f360395d965"
+      }
+    ],
+    "querysetType": "Embedded"
+  }
+}

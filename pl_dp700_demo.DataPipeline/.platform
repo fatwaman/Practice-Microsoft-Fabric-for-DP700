@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_dp700_demo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "cc5d3028-ceec-a94e-480f-a38d8e5dfdb5"
+  }
+}

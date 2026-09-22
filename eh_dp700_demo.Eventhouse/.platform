@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventhouse",
+    "displayName": "eh_dp700_demo",
+    "description": "eh_dp700_demo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fffc4ac5-6176-a003-4a6a-5f29d0768c26"
+  }
+}

@@ -1,0 +1,60 @@
+table assignments
+	lineageTag: 2487c52f-0925-4d28-a30f-f0b994e03ca1
+	sourceLineageTag: [dp700_data].[assignments]
+
+	column assignment_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e086a451-a52e-4ef9-bca0-ec941b722a69
+		sourceLineageTag: assignment_id
+		summarizeBy: sum
+		sourceColumn: assignment_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 370a0f50-77d3-457b-acd6-187b5c432476
+		sourceLineageTag: employee_id
+		summarizeBy: sum
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column project_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fb2e7529-89a1-478c-9e99-98f1b06bdb16
+		sourceLineageTag: project_id
+		summarizeBy: sum
+		sourceColumn: project_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column assigned_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 83a1c9b9-ac06-4134-8d15-0dc4ff3a31e0
+		sourceLineageTag: assigned_date
+		summarizeBy: none
+		sourceColumn: assigned_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column role
+		dataType: string
+		lineageTag: afa6734c-7569-4621-a369-eb964b68ebfd
+		sourceLineageTag: role
+		summarizeBy: none
+		sourceColumn: role
+
+		annotation SummarizationSetBy = Automatic
+
+	partition assignments = entity
+		mode: directLake
+		source
+			entityName: assignments
+			schemaName: dp700_data
+			expressionSource: 'DirectLake - wh_dp700_demo'
+

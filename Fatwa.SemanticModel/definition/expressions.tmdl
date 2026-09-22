@@ -1,0 +1,11 @@
+expression 'DirectLake - wh_dp700_demo' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/c8a28174-0838-4802-87c4-fd773d95207b/ec881d27-da59-4dfc-af9f-fa254c36f816", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 5dba8691-0a43-4f85-b0d6-6ad36faf86ca
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[Movies]"}},"objectType":"Table"}]
+

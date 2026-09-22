@@ -1,0 +1,49 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Notebook1",
+        "type": "TridentNotebook",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "workspaceId": "c8a28174-0838-4802-87c4-fd773d95207b",
+          "sessionTag": "abc"
+        }
+      },
+      {
+        "name": "Notebook1_copy1",
+        "type": "TridentNotebook",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Notebook1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "workspaceId": "c8a28174-0838-4802-87c4-fd773d95207b",
+          "sessionTag": "abc"
+        }
+      }
+    ]
+  }
+}

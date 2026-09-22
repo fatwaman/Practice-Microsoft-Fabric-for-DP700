@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "pl_dp700_demo_spark_setting"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5e23fb10-a5a3-bce5-4748-53b02eba4679"
+  }
+}

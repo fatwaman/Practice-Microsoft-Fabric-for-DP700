@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "nb_dp700_sss_main"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "51fa8726-2cf1-a2b0-4c4e-45451cd0027d"
+  }
+}
